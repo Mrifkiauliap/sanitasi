@@ -19,7 +19,7 @@
                         Selamat Datang, {{ Auth::user()->name }}! 👋
                     </h2>
                     <p class="text-sky-100 mt-1.5 text-sm max-w-md">
-                        Pantau kondisi sanitasi dan distribusi air bersih wilayah terdampak secara real-time.
+                        Pantau kondisi sanitasi dan distribusi air bersih wilayah terdampak.
                     </p>
                 </div>
 
