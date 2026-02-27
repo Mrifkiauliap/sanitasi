@@ -17,9 +17,7 @@ class DashboardController extends Controller
         $totalWilayah       = Wilayah::count();
         $wilayahTerdampak   = Wilayah::where('status', 'terdampak')->count();
 
-        $sanitasiRusak      = Sanitasi::where('status', 'rusak')->count();
-        $sanitasiTidakAda   = Sanitasi::where('status', 'tidak ada')->count();
-        $sanitasiBaik       = Sanitasi::where('status', 'baik')->count();
+        $totalProdukSanitasi = Sanitasi::sum('jumlah');
 
         $distribusiBulanIni = PenyaluranAir::whereMonth('tanggal_distribusi', now()->month)
                                 ->whereYear('tanggal_distribusi', now()->year)
@@ -55,9 +53,7 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalWilayah',
             'wilayahTerdampak',
-            'sanitasiRusak',
-            'sanitasiTidakAda',
-            'sanitasiBaik',
+            'totalProdukSanitasi',
             'distribusiBulanIni',
             'totalPending',
             'penyaluranPending',

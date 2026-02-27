@@ -66,26 +66,24 @@
                 </div>
             </a>
 
-            {{-- Sanitasi Bermasalah --}}
+            {{-- Total Produk Sanitasi --}}
             <a href="{{ route('manajemen-data.sanitasi.index') }}"
                class="group bg-white rounded-xl border border-gray-100 shadow-stat hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 p-5 overflow-hidden relative">
                 <div class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-orange-400 to-amber-600 rounded-l-xl"></div>
                 <div class="flex items-start justify-between pl-1">
                     <div class="min-w-0 flex-1">
-                        <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-widest">Sanitasi Bermasalah</p>
-                        <p class="text-3xl font-black text-gray-900 mt-1.5 leading-none">{{ $sanitasiRusak + $sanitasiTidakAda }}</p>
-                        <p class="text-xs text-gray-400 mt-1.5">
-                            <span class="font-semibold text-orange-600">{{ $sanitasiRusak }}</span> rusak ·
-                            <span class="font-semibold text-gray-600">{{ $sanitasiTidakAda }}</span> tidak ada
-                        </p>
-                        <div class="mt-3 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
-                            @php $totalSanitasi = $sanitasiBaik + $sanitasiRusak + $sanitasiTidakAda; @endphp
-                            <div class="h-full bg-gradient-to-r from-orange-400 to-amber-500 rounded-full transition-all"
-                                 style="width: {{ $totalSanitasi > 0 ? round(($sanitasiRusak + $sanitasiTidakAda) / $totalSanitasi * 100) : 0 }}%"></div>
+                        <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-widest">Total Produk Sanitasi</p>
+                        <p class="text-3xl font-black text-gray-900 mt-1.5 leading-none">{{ number_format($totalProdukSanitasi) }}</p>
+                        <p class="text-xs text-gray-400 mt-1.5">Kuantitas bantuan tersedia</p>
+                        <div class="mt-3 flex items-center gap-1">
+                            <span class="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">
+                                <x-lucide-package class="w-3 h-3" />
+                                Stok Logistik
+                            </span>
                         </div>
                     </div>
                     <div class="flex-shrink-0 ml-3 p-2.5 bg-orange-50 rounded-xl group-hover:bg-orange-100 transition-colors">
-                        <x-lucide-alert-triangle class="w-5 h-5 text-orange-500" />
+                        <x-lucide-shopping-cart class="w-5 h-5 text-orange-500" />
                     </div>
                 </div>
             </a>
@@ -145,7 +143,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
             {{-- Chart Volume Distribusi --}}
-            <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-gray-200 p-5"
+            <div class="lg:col-span-5 bg-white rounded-xl shadow-sm border border-gray-200 p-5"
                  x-data="chartDistribusiData()"
                  x-init="init()">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -171,34 +169,6 @@
                         <div class="animate-spin w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full"></div>
                     </div>
                     <canvas id="chartDistribusi"></canvas>
-                </div>
-            </div>
-
-            {{-- Breakdown Sanitasi  --}}
-            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-800">Status Sanitasi</h3>
-                        <p class="text-xs text-gray-500">Proporsi kondisi fasilitas</p>
-                    </div>
-                    <x-lucide-pie-chart class="w-5 h-5 text-gray-400" />
-                </div>
-                <div class="h-36 flex items-center justify-center">
-                    <canvas id="chartSanitasi"></canvas>
-                </div>
-                <div class="mt-4 space-y-2">
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span> Baik</span>
-                        <span class="font-semibold text-gray-700">{{ $sanitasiBaik }}</span>
-                    </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span> Rusak</span>
-                        <span class="font-semibold text-gray-700">{{ $sanitasiRusak }}</span>
-                    </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-gray-400 inline-block"></span> Tidak Ada</span>
-                        <span class="font-semibold text-gray-700">{{ $sanitasiTidakAda }}</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -355,31 +325,6 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const existingDonut = Chart.getChart('chartSanitasi');
-            if (existingDonut) existingDonut.destroy();
-            const canvas = document.getElementById('chartSanitasi');
-            if (!canvas) return;
-
-            new Chart(canvas, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Baik', 'Rusak', 'Tidak Ada'],
-                    datasets: [{
-                        data: [{{ $sanitasiBaik }}, {{ $sanitasiRusak }}, {{ $sanitasiTidakAda }}],
-                        backgroundColor: ['#22c55e', '#ef4444', '#9ca3af'],
-                        borderWidth: 0,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: { legend: { display: false } }
-                }
-            });
-        });
     </script>
     @endpush
 </x-app-layout>

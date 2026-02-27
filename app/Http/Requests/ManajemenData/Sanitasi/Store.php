@@ -15,8 +15,8 @@ class Store extends FormRequest
     {
         return [
             'wilayah_id' => 'nullable|exists:wilayahs,id',
-            'jenis'      => 'required|string|max:255',
-            'status'     => 'required|in:baik,rusak,tidak ada',
+            'nama'       => 'required|string|max:255',
+            'jumlah'     => 'nullable|integer|min:0',
             'lokasi'     => 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ];

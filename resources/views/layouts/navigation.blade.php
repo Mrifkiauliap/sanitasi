@@ -31,7 +31,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-base font-extrabold tracking-tight text-sidebar-foreground">
-                    {{ env('APP_NAME', 'SIBANHUM') }}
+                    {{ env('APP_NAME', 'SANITASI') }}
                 </h1>
                 <p class="text-[9px] font-semibold text-sidebar-foreground/50 mt-0.5 uppercase tracking-widest">
                     Monitoring Sanitasi &amp; Air

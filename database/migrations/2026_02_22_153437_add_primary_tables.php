@@ -29,8 +29,8 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('wilayahs')
                 ->nullOnDelete();
-            $table->string('jenis'); // MCK Umum, Jamban Keluarga, IPAL Komunal, dsb.
-            $table->enum('status', ['baik', 'rusak', 'tidak ada']);
+            $table->string('nama');
+            $table->integer('jumlah')->nullable();
             $table->string('lokasi');
             $table->text('keterangan')->nullable();
             $table->softDeletes();
@@ -44,8 +44,8 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('wilayahs')
                 ->nullOnDelete();
-            $table->string('sumber_air'); // PDAM, Tandon, Sumur Bor, dsb.
-            $table->integer('volume_liter')->nullable(); // jumlah bantuan air (liter)
+            $table->string('sumber_air');
+            $table->integer('volume_liter')->nullable();
             $table->date('tanggal_distribusi');
             $table->enum('status', ['terdistribusi', 'belum terdistribusi'])->default('belum terdistribusi');
             $table->text('keterangan')->nullable();

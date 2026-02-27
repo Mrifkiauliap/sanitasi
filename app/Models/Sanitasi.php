@@ -11,10 +11,14 @@ class Sanitasi extends Model
 
     protected $fillable = [
         'wilayah_id',
-        'jenis',
-        'status',
+        'nama',
+        'jumlah',
         'lokasi',
         'keterangan',
+    ];
+
+    protected $casts = [
+        'jumlah' => 'integer',
     ];
 
     //  Relasi
@@ -22,22 +26,5 @@ class Sanitasi extends Model
     public function wilayah()
     {
         return $this->belongsTo(Wilayah::class);
-    }
-
-    //  Helper
-
-    public function isBaik(): bool
-    {
-        return $this->status === 'baik';
-    }
-
-    public function isRusak(): bool
-    {
-        return $this->status === 'rusak';
-    }
-
-    public function isTidakAda(): bool
-    {
-        return $this->status === 'tidak ada';
     }
 }

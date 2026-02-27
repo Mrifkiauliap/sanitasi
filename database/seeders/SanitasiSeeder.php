@@ -12,15 +12,14 @@ class SanitasiSeeder extends Seeder
     {
         $wilayahs = Wilayah::where('status', 'terdampak')->get();
 
-        $jenisList = [
-            'MCK Umum',
-            'Jamban Keluarga',
-            'IPAL Komunal',
-            'Sumur Gali',
-            'Bak Penampungan Air',
+        $productNames = [
+            'Sabun Batang',
+            'Cairan Disinfektan',
+            'Hand Sanitizer',
+            'Tisu Basah',
+            'Masker Medis',
+            'Klorin Tablet',
         ];
-
-        $statusList = ['baik', 'rusak', 'tidak ada'];
 
         $lokasiPrefix = [
             'RT 01/RW 01', 'RT 02/RW 01',
@@ -32,30 +31,23 @@ class SanitasiSeeder extends Seeder
 
         foreach ($wilayahs as $wilayah) {
             $count    = rand(2, 3);
-            $usedJenis = [];
+            $usedProducts = [];
 
             for ($i = 0; $i < $count; $i++) {
-                // Pastikan jenis yang berbeda per wilayah (jika mungkin)
+                // Pastikan nama produk yang berbeda per wilayah (jika mungkin)
                 do {
-                    $jenis = $jenisList[array_rand($jenisList)];
-                } while (in_array($jenis, $usedJenis) && count($usedJenis) < count($jenisList));
-                $usedJenis[] = $jenis;
+                    $nama = $productNames[array_rand($productNames)];
+                } while (in_array($nama, $usedProducts) && count($usedProducts) < count($productNames));
+                $usedProducts[] = $nama;
 
-                $status = $statusList[array_rand($statusList)];
-
-                $keterangan = match ($status) {
-                    'baik'      => 'Fasilitas dalam kondisi terawat dan dapat digunakan dengan baik.',
-                    'rusak'     => 'Dinding bocor dan kloset tidak berfungsi, perlu renovasi segera.',
-                    'tidak ada' => 'Fasilitas belum tersedia di lokasi ini, perlu pembangunan baru.',
-                    default     => null,
-                };
+                $jumlah = rand(10, 100);
 
                 $data[] = [
                     'wilayah_id' => $wilayah->id,
-                    'jenis'      => $jenis,
-                    'status'     => $status,
+                    'nama'       => $nama,
+                    'jumlah'     => $jumlah,
                     'lokasi'     => $lokasiPrefix[array_rand($lokasiPrefix)] . ', ' . $wilayah->nama,
-                    'keterangan' => $keterangan,
+                    'keterangan' => 'Stok produk sanitasi untuk bantuan wilayah.',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

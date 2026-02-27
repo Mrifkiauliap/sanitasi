@@ -20,15 +20,15 @@ class DatabaseSeeder extends Seeder
             'name'     => 'Admin Sanitasi',
             'username' => 'admin',
             'email'    => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('admin321'),
             'status'   => 'active',
         ]);
 
-        $this->call([
-            WilayahSeeder::class,
-            SanitasiSeeder::class,
-            PenyaluranAirSeeder::class,
-            LaporanKondisiSeeder::class,
-        ]);
+        // $this->call([
+        //     WilayahSeeder::class,
+        //     SanitasiSeeder::class,
+        //     PenyaluranAirSeeder::class,
+        //     LaporanKondisiSeeder::class,
+        // ]);
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'SIBANHUM') }}</title>
+    <title>{{ config('app.name', 'SANITASI') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased text-gray-900 bg-gray-50">
@@ -30,7 +30,7 @@
                         <x-lucide-droplets class="w-8 h-8 text-white" />
                     </div>
                     <div>
-                        <span class="text-2xl font-black tracking-tighter text-white uppercase">{{ config('app.name', 'SIBANHUM') }}</span>
+                        <span class="text-2xl font-black tracking-tighter text-white uppercase">{{ config('app.name', 'SANITASI') }}</span>
                         <p class="text-[10px] text-sky-200 font-bold tracking-[0.2em] uppercase mt-0.5">Sanitasi & Air Pasca Bencana</p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="relative z-10 flex items-center justify-between text-sky-200/50 text-xs font-semibold tracking-wider uppercase">
-                <span>&copy; {{ date('Y') }} {{ config('app.name', 'SIBANHUM') }}</span>
+                <span>&copy; {{ date('Y') }} {{ config('app.name', 'SANITASI') }}</span>
                 <div class="flex gap-4">
                     <span>{{ config('app.version', 'V1.0.0') }}</span>
                     <span>Support</span>

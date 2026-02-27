@@ -19,14 +19,10 @@ class SanitasiController extends Controller
             if ($request->filled('search')) {
                 $search = $request->search;
                 $query->where(function ($q) use ($search) {
-                    $q->where('jenis', 'like', "%{$search}%")
+                    $q->where('nama', 'like', "%{$search}%")
                         ->orWhere('lokasi', 'like', "%{$search}%")
                         ->orWhereHas('wilayah', fn($w) => $w->where('nama', 'like', "%{$search}%"));
                 });
-            }
-
-            if ($request->filled('status')) {
-                $query->where('status', $request->status);
             }
 
             if ($request->filled('wilayah_id')) {
@@ -36,7 +32,7 @@ class SanitasiController extends Controller
             if ($request->filled('sort')) {
                 $query->orderBy($request->sort, $request->dir ?? 'asc');
             } else {
-                $query->orderBy('jenis');
+                $query->orderBy('nama');
             }
 
             $data = $query->paginate($request->limit ?? 10);
@@ -70,7 +66,7 @@ class SanitasiController extends Controller
             ->with('notification', [
                 'type'    => 'success',
                 'title'   => 'Berhasil',
-                'message' => 'Data sanitasi berhasil ditambahkan',
+                'message' => 'Produk sanitasi berhasil ditambahkan',
             ]);
     }
 
@@ -96,7 +92,7 @@ class SanitasiController extends Controller
             ->with('notification', [
                 'type'    => 'success',
                 'title'   => 'Berhasil',
-                'message' => 'Data sanitasi berhasil diupdate',
+                'message' => 'Produk sanitasi berhasil diupdate',
             ]);
     }
 
@@ -108,7 +104,7 @@ class SanitasiController extends Controller
             ->with('notification', [
                 'type'    => 'success',
                 'title'   => 'Berhasil',
-                'message' => 'Data sanitasi berhasil dihapus',
+                'message' => 'Produk sanitasi berhasil dihapus',
             ]);
     }
 }
